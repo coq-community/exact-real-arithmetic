@@ -1,0 +1,81 @@
+Require Import ZArith.
+Require Import Reals.
+
+
+Lemma Zabs_mult : forall z1 z2 : Z, Zabs (z1 * z2) = (Zabs z1 * Zabs z2)%Z.
+
+Proof.
+intros.
+case z1.
+simpl in |- *.
+auto.
+case z2.
+simpl in |- *; auto.
+simpl in |- *; auto.
+simpl in |- *; auto.
+simpl in |- *.
+intros.
+case z2.
+auto with real. 
+auto with real. 
+auto with real.
+Qed.
+
+Hint Resolve Zabs_mult: real.
+
+
+Lemma Zabs_O : forall z : Z, Zabs z = 0%Z -> z = 0%Z.
+
+Proof.
+intro z.
+case z; simpl in |- *; auto.
+intros.
+inversion H.
+Qed.
+
+
+Hint Resolve Zabs_O: real.
+
+
+Lemma Zabs_lt_0 : forall z : Z, z <> 0%Z -> (Zabs z > 0)%Z.
+
+Proof.
+intro.
+unfold Zabs in |- *.
+case z.
+intuition.
+auto with zarith.
+auto with zarith.
+Qed.
+
+Hint Resolve Zabs_lt_0: zarith.
+
+
+Lemma Zabs_not_eq : forall z : Z, (Zabs z > 0)%Z -> z <> 0%Z.
+Proof.
+intro.
+unfold Zabs in |- *.
+case z; intro.
+inversion H.
+auto with zarith.
+intro.
+intuition.
+inversion H0.
+Qed.
+
+Hint Resolve Zabs_not_eq: zarith.
+
+
+Lemma Zabs_01 :
+ forall x a : Z, (0 <= a)%Z -> (x <= a)%Z -> (a < Zabs x)%Z -> (x < 0)%Z.
+Proof.
+intros x a H.
+unfold Zabs in |- *.
+case x; intros.
+omega.
+omega.
+red in |- *.
+auto with zarith.
+Qed.
+
+Hint Resolve Zabs_01: zarith.

@@ -1,0 +1,63 @@
+Require Import ZArith.
+Require Import Reals.
+
+Lemma Zsgn_mult : forall z z1 : Z, (Zsgn z * Zsgn z1)%Z = Zsgn (z * z1). 
+
+Proof.
+intros.
+case z; case z1; auto with real.
+Qed.
+
+Hint Resolve Zsgn_mult: real.
+
+
+
+Lemma Zsgn_trivial : forall z z1 : Z, z = z1 -> Zsgn z = Zsgn z1.
+
+Proof.
+intros.
+rewrite H; auto.
+Qed.
+
+Hint Resolve Zsgn_trivial: real.
+
+Lemma Zsgn_neg : forall z : Z, (z < 0)%Z -> Zsgn z = (-1)%Z.
+
+Proof.
+intro.
+case z.
+intro.
+inversion H.
+intros.
+inversion H.
+auto with zarith.
+Qed.
+
+Hint Resolve Zsgn_neg: real.
+
+
+Lemma Zsgn_pos : forall z : Z, (0 < z)%Z -> Zsgn z = 1%Z.
+
+Proof.
+intro.
+case z.
+intro.
+inversion H.
+auto with zarith.
+intros.
+inversion H.
+Qed.
+
+Hint Resolve Zsgn_pos: real. 
+
+
+Lemma Zsgn_nul : forall z : Z, 0%Z = z -> Zsgn z = 0%Z.
+
+Proof.
+intros.
+rewrite <- H; auto with zarith.
+Qed.
+
+Hint Resolve Zsgn_nul: real. 
+
+

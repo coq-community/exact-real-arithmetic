@@ -1,0 +1,88 @@
+Require Import definition. 
+Require Import Tactiques.
+Require Import Rbase_doubles_inegalites.
+
+Axiom B_sup_4 : 4 <= B.
+
+
+Axiom
+  gauss_correct :
+    forall z : Z,
+    (IZR z * / INR B - 1 * / 2 < IZR (gauss_z_sur_B z) <=
+     IZR z * / INR B + 1 * / 2)%R.
+
+
+Axiom
+  gauss_correct_pow :
+    forall z n : Z,
+    (IZR z * / B_powerRZ n - 1 * / 2 < IZR (gauss_z_sur_B_pow z n) <=
+     IZR z * / B_powerRZ n + 1 * / 2)%R.
+
+
+Axiom
+  msd_c :
+    forall xc : Reelc,
+    (forall n : Z, (n < msd xc)%Z -> (Zabs (xc n) <= 1)%Z) /\
+    (Zabs (xc (msd xc)) > 1)%Z. 
+
+Lemma intermediaire :
+ forall (xc : Reelc) (m : Z),
+ msd xc = m ->
+ (forall n : Z, (n < m)%Z -> (Zabs (xc n) <= 1)%Z) /\ (Zabs (xc m) > 1)%Z.
+Proof.                  
+intros xc m a.
+rewrite <- a.
+apply msd_c.
+Qed.
+
+Lemma msd_c_bis :
+ forall (xc : Reelc) (m : Z),
+ (forall n : Z, (n < m)%Z -> (Zabs (xc n) <= 1)%Z) /\ (Zabs (xc m) > 1)%Z ->
+ msd xc = m. 
+Proof.
+intros xc m (H1, H2).
+generalize (msd_c xc); intuition.
+assert (cmp : (m < msd xc)%Z \/ m = msd xc \/ (msd xc < m)%Z).
+omega.
+intuition.
+generalize (H0 m H); intro; omega.
+generalize (H1 (msd xc) H4); intro; omega.
+Qed.
+
+Lemma msd_c_ter : forall xc : Reelc, (1 < Zabs (xc (msd xc)))%Z.
+Proof.
+intros.
+apply Zgt_lt.
+generalize (msd_c xc); intros (h1, h2).
+generalize (h1 (Zpred (msd xc))); auto.
+Qed.
+
+
+Lemma msd_c_4 : forall xc : Reelc, (IZR (Zabs (xc (Zpred (msd xc)))) <= 1)%R.
+Proof.
+intros.
+RingReplace 1%R (IZR (Zsucc 0)); apply IZR_le.
+simpl in |- *.
+generalize (msd_c xc); intros (h1, h2).
+generalize (h1 (Zpred (msd xc))); intro.
+auto with zarith.
+Qed.
+
+
+Lemma xc_nul :
+ forall (x : R) (xc : Reelc) (n : Z),
+ x = 0%R -> encadrement xc x -> xc n = 0%Z.
+Proof.
+intros.
+generalize (H0 n); clear H0.
+rewrite H.
+RingReplace (0 * B_powerRZ n)%R 0%R.
+intro.
+apply one_IZR_lt1.
+apply Rlt_2_minus_r with (IZR (xc n)).
+RingReplace (-1 - IZR (xc n))%R (- (IZR (xc n) + 1))%R.
+RingReplace (1 - IZR (xc n))%R (- (IZR (xc n) - 1))%R.
+RingReplace (IZR (xc n) - IZR (xc n))%R (-0)%R.
+apply Rlt_2_Ropp_r.
+auto.
+Qed.
