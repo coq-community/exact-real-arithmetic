@@ -1,3 +1,6 @@
+(* This code is copyrighted by its authors; it is distributed under  *)
+(* the terms of the LGPL license (see LICENSE and description files) *)
+
 Require Import ZArith.
 
 Lemma Zlt_le_Zs : forall z z1 : Z, (Zsucc z <= z1)%Z -> (z < z1)%Z.

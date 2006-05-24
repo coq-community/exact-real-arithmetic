@@ -1,3 +1,6 @@
+(* This code is copyrighted by its authors; it is distributed under  *)
+(* the terms of the LGPL license (see LICENSE and description files) *)
+
 Require Import Reals.
 
 Lemma Rsub_sym : forall x y : R, (x - y)%R = (- y + x)%R.
