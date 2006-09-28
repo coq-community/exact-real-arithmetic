@@ -346,10 +346,8 @@ apply Rle_lt_0_plus_1.
 RingReplace 0 (IZR 0).
 apply Rlt_le; apply IZR_lt.
 auto.
-rewrite Zabs_mult; rewrite mult_IZR; ring.
-rewrite plus_IZR; ring.
-rewrite Zabs_mult; rewrite mult_IZR; ring.
-rewrite plus_IZR; ring.
+rewrite Zabs_mult; rewrite mult_IZR; rewrite plus_IZR; ring.
+rewrite Zabs_mult; rewrite mult_IZR; rewrite plus_IZR; ring.
 replace (powerRZ (INR B) (p_max yc n) * powerRZ (INR B) (p_max xc n)) with
  (powerRZ (INR B) (p_max yc n + p_max xc n)); auto.
 apply powerRZ_add.
@@ -446,10 +444,8 @@ apply Rle_lt_0_plus_1.
 RingReplace 0 (IZR 0).
 apply Rlt_le; apply IZR_lt.
 auto.
-rewrite Zabs_mult; rewrite mult_IZR; ring.
-rewrite plus_IZR; ring.
-rewrite Zabs_mult; rewrite mult_IZR; ring.
-rewrite plus_IZR; ring.
+rewrite Zabs_mult; rewrite mult_IZR; rewrite plus_IZR; ring.
+rewrite Zabs_mult; rewrite mult_IZR; rewrite plus_IZR; ring.
 replace (powerRZ (INR B) (p_max yc n) * powerRZ (INR B) (p_max xc n)) with
  (powerRZ (INR B) (p_max yc n + p_max xc n)); auto.
 apply powerRZ_add.
@@ -801,22 +797,9 @@ apply INR_B_non_nul.
 apply INR_B_non_nul.
 simpl in |- *.
 field.
-apply Rgt_not_eq; fourier.
-simpl in |- *.
-rewrite RIneq.Rmult_1_r.
 auto.
 simpl in |- *.
-rewrite RIneq.Rmult_1_r; rewrite Rmult_1l.
-replace (/ 4) with (2 * / 8).
-replace (2 * / (4 * 4)) with (1 * / 8).
-rewrite <- Rmult_plus_distr_r.
-RingReplace (2 + 1) 3.
-apply Req_le.
-auto.
-field.
-apply Rgt_not_eq; fourier.
-field.
-apply Rgt_not_eq; fourier.
+fourier.
 
 (*derniere partie*)
 
@@ -1115,22 +1098,9 @@ apply INR_B_non_nul.
 apply INR_B_non_nul.
 simpl in |- *.
 field.
-apply Rgt_not_eq; fourier.
-simpl in |- *.
-rewrite RIneq.Rmult_1_r.
 auto.
 simpl in |- *.
-rewrite RIneq.Rmult_1_r; rewrite Rmult_1l.
-replace (/ 4) with (2 * / 8).
-replace (2 * / (4 * 4)) with (1 * / 8).
-rewrite <- Rmult_plus_distr_r.
-RingReplace (2 + 1) 3.
-apply Req_le.
-auto.
-field.
-apply Rgt_not_eq; fourier.
-field.
-apply Rgt_not_eq; fourier.
+fourier.
 Qed.
 
 Hint Resolve multiplication_correct: reals.

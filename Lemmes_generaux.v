@@ -198,7 +198,7 @@ elim H2.
 unfold B_powerRZ in |- *; intros; auto.
 apply absolue_correct; auto.
 intros.
-RingReplace (Zabs (xc n)) (Zsucc (Zabs (xc n) - 1));
+replace (Zabs (xc n)) with (Zsucc (Zabs (xc n) - 1));
  [ apply Zlt_le_succ | unfold Zsucc in |- *; simpl in |- *; ring ].
 apply lt_IZR.
 rewrite <- Z_R_minus.

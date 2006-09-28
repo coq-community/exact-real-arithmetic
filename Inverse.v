@@ -265,7 +265,6 @@ apply Rlt_trans with (IZR alpha).
 auto with real.
 elim H2; auto.
 elim H2; auto.
-ring.
 RingReplace 1 (IZR (Zsucc 0)).
 rewrite plus_IZR; auto.
 rewrite H8.

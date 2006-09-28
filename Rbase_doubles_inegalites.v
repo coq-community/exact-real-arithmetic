@@ -72,7 +72,7 @@ rewrite Rplus_comm; auto.
 
 apply Rlt_add_compatibility2.
 rewrite Rplus_comm; rewrite Rsub_sym; rewrite <- Rplus_assoc.
-RingReplace (-1 + 1 * / 2) (- (1 * / 2));
+replace (-1 + 1 * / 2) with (- (1 * / 2));
  [ idtac | field; apply Rgt_not_eq; fourier ].
 rewrite <- Rsub_sym.
 elim H; intros; assumption.
