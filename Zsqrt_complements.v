@@ -71,7 +71,7 @@ intros.
 apply Rsqr_incrst_0.
 rewrite Rsqr_sqrt.
 unfold Rsqr in |- *.
-RingReplace (IZR (Zsqrt_plain z) + 1)%R (IZR (Zsqrt_plain z + Zsucc 0)).
+replace (IZR (Zsqrt_plain z) + 1)%R with (IZR (Zsqrt_plain z + Zsucc 0)).
 rewrite <- mult_IZR.
 apply IZR_lt.
 cut
@@ -80,16 +80,15 @@ cut
 intuition.
 apply Zsqrt_interval.
 auto.
-RingReplace 1%R (IZR (Zsucc 0)).
+change 1%R with (IZR (Zsucc 0)).
 rewrite <- plus_IZR.
-apply IZR_trivial.
-omega.
-RingReplace 0%R (IZR 0).
+trivial.
+change 0%R with (IZR 0).
 apply IZR_le; auto.
 apply sqrt_positivity.
-RingReplace 0%R (IZR 0).
+change 0%R with (IZR 0).
 apply IZR_le; auto.
-RingReplace 0%R (IZR 0); RingReplace 1%R (IZR (Zsucc 0)).
+change 0%R with (IZR 0); change 1%R with (IZR (Zsucc 0)).
 rewrite <- plus_IZR; apply IZR_le.
 replace (Zsqrt_plain z + Zsucc 0)%Z with (Zsucc (Zsqrt_plain z));
  [ idtac | omega ].

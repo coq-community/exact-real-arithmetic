@@ -126,8 +126,8 @@ intro; clear H H2 H0 H1.
 RingReplace (Zsgn (XC (p_max YC n)) * Zsgn (YC (p_max XC n)))%Z
  (Zsgn (YC (p_max XC n)) * Zsgn (XC (p_max YC n)))%Z.
 RingReplace (X * Y) (Y * X).
-RingReplace (Zabs (XC (p_max YC n) * YC (p_max XC n)))
- (Zabs (YC (p_max XC n) * XC (p_max YC n))).
+replace (Zabs (XC (p_max YC n) * YC (p_max XC n)))
+ with (Zabs (YC (p_max XC n) * XC (p_max YC n))).
 RingReplace (p_max YC n + p_max XC n)%Z (p_max XC n + p_max YC n)%Z.
 auto.
 rewrite Zmult_comm; auto.
@@ -171,10 +171,11 @@ replace (powerRZ (INR B) n * powerRZ (INR B) (p_max yc n + p_max xc n - n))
 replace (powerRZ (INR B) (p_max yc n + p_max xc n)) with
  (powerRZ (INR B) (p_max yc n) * powerRZ (INR B) (p_max xc n)). 
 rewrite Rmult_mult_mult.
-RingReplace
+replace
  (1 + IZR (Zabs (xc (p_max yc n) * yc (p_max xc n))) +
   IZR (Zabs (xc (p_max yc n)) + Zabs (yc (p_max xc n))))
- ((IZR (Zabs (xc (p_max yc n))) + 1) * (IZR (Zabs (yc (p_max xc n))) + 1)). 
+ with
+  ((IZR (Zabs (xc (p_max yc n))) + 1) * (IZR (Zabs (yc (p_max xc n))) + 1)). 
 apply Rmult_le.
 apply Rle_ge.
 apply Rmult_le_pos.
@@ -308,14 +309,16 @@ replace (powerRZ (INR B) n * powerRZ (INR B) (p_max yc n + p_max xc n - n))
 replace (powerRZ (INR B) (p_max yc n + p_max xc n)) with
  (powerRZ (INR B) (p_max yc n) * powerRZ (INR B) (p_max xc n)). 
 rewrite Rmult_mult_mult.
-RingReplace
+replace
  (1 + IZR (Zabs (xc (p_max yc n) * yc (p_max xc n))) +
   IZR (Zabs (xc (p_max yc n)) + Zabs (yc (p_max xc n))))
- ((IZR (Zabs (xc (p_max yc n))) + 1) * (IZR (Zabs (yc (p_max xc n))) + 1)). 
-RingReplace
+ with
+  ((IZR (Zabs (xc (p_max yc n))) + 1) * (IZR (Zabs (yc (p_max xc n))) + 1)). 
+replace
  (1 + IZR (Zabs (xc (p_max yc n) * yc (p_max xc n))) -
   IZR (Zabs (xc (p_max yc n)) + Zabs (yc (p_max xc n))))
- ((IZR (Zabs (xc (p_max yc n))) - 1) * (IZR (Zabs (yc (p_max xc n))) - 1)). 
+ with
+  ((IZR (Zabs (xc (p_max yc n))) - 1) * (IZR (Zabs (yc (p_max xc n))) - 1)). 
 apply Rle_mult_lt.
 cut (encadrement (absolue_reelc xc) (Rabs x)).
 unfold encadrement in |- *; intro.
@@ -405,14 +408,16 @@ replace (powerRZ (INR B) n * powerRZ (INR B) (p_max yc n + p_max xc n - n))
 replace (powerRZ (INR B) (p_max yc n + p_max xc n)) with
  (powerRZ (INR B) (p_max yc n) * powerRZ (INR B) (p_max xc n)). 
 rewrite Rmult_mult_mult.
-RingReplace
+replace
  (1 + IZR (Zabs (xc (p_max yc n) * yc (p_max xc n))) +
   IZR (Zabs (xc (p_max yc n)) + Zabs (yc (p_max xc n))))
- ((IZR (Zabs (xc (p_max yc n))) + 1) * (IZR (Zabs (yc (p_max xc n))) + 1)). 
-RingReplace
+ with
+  ((IZR (Zabs (xc (p_max yc n))) + 1) * (IZR (Zabs (yc (p_max xc n))) + 1)). 
+replace
  (1 + IZR (Zabs (xc (p_max yc n) * yc (p_max xc n))) -
   IZR (Zabs (xc (p_max yc n)) + Zabs (yc (p_max xc n))))
- ((IZR (Zabs (xc (p_max yc n))) - 1) * (IZR (Zabs (yc (p_max xc n))) - 1)). 
+ with
+  ((IZR (Zabs (xc (p_max yc n))) - 1) * (IZR (Zabs (yc (p_max xc n))) - 1)). 
 
 apply Rle_mult_lt.
 cut (encadrement (absolue_reelc xc) (Rabs x)).
@@ -476,7 +481,7 @@ intros.
 pattern (yc (p_max xc n)) in |- *.
 apply Zabs_ind_le_1.
 intro.
-RingReplace (1 * / 2) (2 * / 4).
+replace (1 * / 2) with (2 * / 4).
 apply Rmult_le_compat.
 RingReplace 0 (IZR 0); apply IZR_le.
 rewrite H1.
@@ -489,7 +494,7 @@ rewrite plus_IZR; rewrite H1.
 RingReplace (IZR 1) 1.
 apply Rplus_le_reg_l with (-1).
 rewrite <- Rplus_assoc; RingReplace (-1 + 1) 0; rewrite Rplus_comm;
- rewrite Rplus_0_r; RingReplace (-1 + 2) (IZR (Zsucc 0)).
+ rewrite Rplus_0_r; replace (-1 + 2) with (IZR (Zsucc 0)) by (simpl;ring).
 apply IZR_le; auto.
 apply Rinv_le.
 unfold B_powerRZ in |- *; apply powerRZ_lt; apply INR_B_non_nul.

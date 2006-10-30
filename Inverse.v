@@ -279,25 +279,21 @@ rewrite Z_R_minus.
 RingReplace (alpha + 1 - Zsucc 0)%Z alpha; auto.
 omega.
 RingReplace (alpha + 1)%Z (Zsucc alpha).
-apply Zle_2_Zs.
-omega.
-(*Omega.*)
 
 cut (lambda = (alpha + 1)%Z).
 intro.
 rewrite H7.
-RingReplace (IZR (alpha + 1) - 1) (IZR alpha).
-RingReplace (IZR (alpha + 1) + 1) (IZR (alpha + Zsucc (Zsucc 0))).
+replace (IZR (alpha + 1) - 1) with (IZR alpha).
+replace (IZR (alpha + 1) + 1) with (IZR (alpha + Zsucc (Zsucc 0))).
 replace (alpha + Zsucc (Zsucc 0))%Z with (alpha + 2)%Z.
 rewrite <- H6.
 auto.
 omega.
-RingReplace 1 (IZR (Zsucc 0)).
+change 1 with (IZR (Zsucc 0)).
 rewrite <- plus_IZR.
 apply IZR_trivial.
 omega.
-RingReplace 1 (IZR (Zsucc 0)).
-rewrite <- Rsub_sym.
+change 1 with (IZR (Zsucc 0)).
 rewrite Z_R_minus.
 apply IZR_trivial.
 omega.

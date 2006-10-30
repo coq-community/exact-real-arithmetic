@@ -195,7 +195,7 @@ replace (Zneg p * Zneg p + Zsucc 0)%Z with (Zsucc (Zneg p * Zneg p));
  [ idtac | omega ].
 apply Zle_le_succ.
 apply Zge_le; apply sqr_pos.
-RingReplace (IZR x0 + 1) (IZR (x0 + Zsucc 0)).
+replace (IZR x0 + 1) with (IZR (x0 + Zsucc 0)).
 replace (IZR (x0 + Zsucc 0)) with (sqrt (Rsqr (IZR (x0 + Zsucc 0)))).
 apply sqrt_lt_1.
 RingReplace 0 (IZR 0); apply IZR_le.

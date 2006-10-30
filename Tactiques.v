@@ -1,6 +1,6 @@
 Require Import definition.
-Require Export LegacyZArithRing.
-Require Export LegacyRfield.
+Require Export ZArithRing.
+Require Export RealField.
 
 Ltac RingReplace x y := 
-  change x with y || (replace x with y; [ idtac | legacy ring ]).
+  change x with y || (replace x with y; [ idtac | ring ]).
