@@ -633,9 +633,10 @@ auto.
 fourier.
 Qed.
 
-Hint Resolve Lemmes_generaux.Rabsolu_01: real.
+Hint Resolve Rabsolu_01: real.
 
-Axiom Zsqrt_non_negative : forall z : Z, (0 <= z)%Z -> (0 <= Zsqrt_plain z)%Z.
+Definition Zsqrt_non_negative : forall z : Z, (0 <= z)%Z -> (0 <= Zsqrt z)%Z
+ := Z.sqrt_nonneg.
 
 Lemma Zsqr_cond :
  forall z : Z,
@@ -650,9 +651,9 @@ intros.
 cut (z = 0%Z \/ z = 1%Z \/ (2 <= z)%Z); [ intuition | omega ].
 exists 0%Z; omega.
 exists 1%Z; omega.
-generalize (Zsqrt_interval z H); intro.
+generalize (Z.sqrt_spec z H); cbv zeta; intro.
 generalize (Zsqrt_non_negative z H); intro.
-set (r := Zsqrt_plain z) in *.
+set (r := Zsqrt z) in *. unfold Zsucc in *.
 cut
  ((z < r * r - 1)%Z \/
   z = (r * r - 1)%Z \/
