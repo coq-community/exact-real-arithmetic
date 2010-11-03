@@ -635,8 +635,10 @@ Qed.
 
 Hint Resolve Rabsolu_01: real.
 
-Definition Zsqrt_non_negative : forall z : Z, (0 <= z)%Z -> (0 <= Zsqrt z)%Z
- := Z.sqrt_nonneg.
+Lemma Zsqrt_non_negative : forall z : Z, (0 <= z)%Z -> (0 <= Zsqrt z)%Z.
+Proof.
+intros. apply Z.sqrt_nonneg.
+Qed.
 
 Lemma Zsqr_cond :
  forall z : Z,
