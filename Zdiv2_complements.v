@@ -5,8 +5,8 @@ Require Import ZArith.
 Require Import Reals.
 
 
-Lemma Zodd_div2_bis :
- forall x : Z, (x <= 0)%Z -> Zeven.Zodd x -> x = (2 * Zeven.Zdiv2 x - 1)%Z.
+Lemma Zodd_quot2_bis :
+ forall x : Z, (x <= 0)%Z -> Zeven.Zodd x -> x = (2 * Zeven.Zquot2 x - 1)%Z.
 
 Proof.
 destruct x.
@@ -18,4 +18,4 @@ intros.
 absurd (Zeven.Zodd (Zneg (xO p))); red in |- *; auto with real.
 Qed.
 
-Hint Resolve Zodd_div2_bis: arith.
+Hint Resolve Zodd_quot2_bis: arith.

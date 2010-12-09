@@ -41,7 +41,7 @@ Definition addition_reelc (xc yc : Reelc) : Reelc :=
 Parameter msd : Reelc -> Z.
 
 Definition p_max (xc : Reelc) (n : Z) : Z :=
-  Zmax (n - msd xc + 3) (Zeven.Zdiv2 (n + 2)). 
+  Zmax (n - msd xc + 3) (Zeven.Zquot2 (n + 2)). 
 
 Definition multiplication_reelc (xc yc : Reelc) : Reelc :=
   fun n : Z =>

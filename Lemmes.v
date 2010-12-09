@@ -146,31 +146,31 @@ Proof.
 intros.
 apply Zle_add_compatibility.
 unfold p_max in |- *.
-apply Zle_trans with (Zeven.Zdiv2 (n + 2) + Zeven.Zdiv2 (n + 2))%Z;
+apply Zle_trans with (Zeven.Zquot2 (n + 2) + Zeven.Zquot2 (n + 2))%Z;
  [ idtac | apply Zplus_le_compat; apply Zle_max_r ].
-RingReplace (Zeven.Zdiv2 (n + 2) + Zeven.Zdiv2 (n + 2))%Z
- (2 * Zeven.Zdiv2 (n + 2))%Z.
+RingReplace (Zeven.Zquot2 (n + 2) + Zeven.Zquot2 (n + 2))%Z
+ (2 * Zeven.Zquot2 (n + 2))%Z.
 cut ({Zeven.Zeven (n + 2)} + {Zeven.Zodd (n + 2)});
  [ idtac | apply Zeven.Zeven_odd_dec ].
 intros.
 elim H; clear H.
-intro; replace (2 * Zeven.Zdiv2 (n + 2))%Z with (n + 2)%Z;
- [ idtac | apply Zeven.Zeven_div2; auto ]. 
+intro; replace (2 * Zeven.Zquot2 (n + 2))%Z with (n + 2)%Z;
+ [ idtac | apply Zeven.Zeven_quot2; auto ]. 
 rewrite Zplus_comm; apply Zplus_le_compat_l.
 omega.
 cut ((n + 2 <= 0)%Z \/ (0 <= n + 2)%Z); [ idtac | apply Zlt_le_ind ].
 intro; elim H; clear H.
 intros; rewrite Zplus_comm; apply Zplus_le_reg_r with (-1)%Z.
-RingReplace (2 * Zeven.Zdiv2 (n + 2) + -1)%Z (2 * Zeven.Zdiv2 (n + 2) - 1)%Z;
+RingReplace (2 * Zeven.Zquot2 (n + 2) + -1)%Z (2 * Zeven.Zquot2 (n + 2) - 1)%Z;
  RingReplace (n + 1 + -1)%Z n.
-replace (2 * Zeven.Zdiv2 (n + 2) - 1)%Z with (n + 2)%Z;
- [ idtac | apply Zodd_div2_bis; auto ]. 
+replace (2 * Zeven.Zquot2 (n + 2) - 1)%Z with (n + 2)%Z;
+ [ idtac | apply Zodd_quot2_bis; auto ]. 
 pattern n at 1 in |- *; RingReplace n (n + 0)%Z.
 apply Zplus_le_compat_l.
 omega.
 intros; rewrite Zplus_comm; apply Zplus_le_reg_r with 1%Z.
-replace (2 * Zeven.Zdiv2 (n + 2) + 1)%Z with (n + 2)%Z;
- [ idtac | apply Zeven.Zodd_div2; auto ]. 
+replace (2 * Zeven.Zquot2 (n + 2) + 1)%Z with (n + 2)%Z;
+ [ idtac | apply Zeven.Zodd_quot2; auto ]. 
 rewrite <- Zplus_assoc.
 apply Zplus_le_compat_l.
 omega.
