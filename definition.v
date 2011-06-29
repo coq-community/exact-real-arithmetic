@@ -72,7 +72,7 @@ Definition inverse_reelc (xc : Reelc) : Reelc :=
   end.    
 
 Definition racine_reelc (xc : Reelc) : Reelc :=
-  fun n : Z => Zsqrt (xc (Zsucc (Zsucc 0) * n)%Z).
+  fun n : Z => Z.sqrt (xc (Zsucc (Zsucc 0) * n)%Z).
 
 
 

@@ -635,7 +635,7 @@ Qed.
 
 Hint Resolve Rabsolu_01: real.
 
-Lemma Zsqrt_non_negative : forall z : Z, (0 <= z)%Z -> (0 <= Zsqrt z)%Z.
+Lemma Zsqrt_non_negative : forall z : Z, (0 <= z)%Z -> (0 <= Z.sqrt z)%Z.
 Proof.
 intros. apply Z.sqrt_nonneg.
 Qed.
@@ -655,7 +655,7 @@ exists 0%Z; omega.
 exists 1%Z; omega.
 generalize (Z.sqrt_spec z H); cbv zeta; intro.
 generalize (Zsqrt_non_negative z H); intro.
-set (r := Zsqrt z) in *. unfold Zsucc in *.
+set (r := Z.sqrt z) in *. unfold Zsucc in *.
 cut
  ((z < r * r - 1)%Z \/
   z = (r * r - 1)%Z \/

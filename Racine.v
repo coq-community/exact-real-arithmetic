@@ -15,7 +15,7 @@ Require Import Zarith_inegalites.
 Require Import Zarith_operations.
 
 
-Axiom Int_part_sqrt : forall z : Z, Zsqrt z = Int_part (sqrt (IZR z)).
+Axiom Int_part_sqrt : forall z : Z, Z.sqrt z = Int_part (sqrt (IZR z)).
 
 
 Axiom
@@ -100,10 +100,10 @@ decompose [or] H2; clear H2.
 
 (*a revoir a partir de la*)
 
-replace (IZR (Zsqrt (xc (Zsucc (Zsucc 0) * n)%Z)) - 1) with
- (IZR (Zsqrt (xc (Zsucc (Zsucc 0) * n)%Z - Zsucc 0))).
-replace (IZR (Zsqrt (xc (Zsucc (Zsucc 0) * n)%Z))) with
- (IZR (Zsqrt (xc (Zsucc (Zsucc 0) * n)%Z + Zsucc 0))).
+replace (IZR (Z.sqrt (xc (Zsucc (Zsucc 0) * n)%Z)) - 1) with
+ (IZR (Z.sqrt (xc (Zsucc (Zsucc 0) * n)%Z - Zsucc 0))).
+replace (IZR (Z.sqrt (xc (Zsucc (Zsucc 0) * n)%Z))) with
+ (IZR (Z.sqrt (xc (Zsucc (Zsucc 0) * n)%Z + Zsucc 0))).
 apply
  Rlt_2_le_lt
   with
