@@ -5,6 +5,7 @@ Require Import Reals.
 Require Import Rbase_inegalites.
 Require Import Tactiques.
 Require Import Fourier.
+Require Import Omega.
 
 Lemma powerRZ_Zs :
  forall (r : R) (z : Z), r <> 0 -> powerRZ r (Zsucc z) = powerRZ r z * r. 
