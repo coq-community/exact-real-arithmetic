@@ -57,7 +57,7 @@ fourier.
 rewrite Rmult_assoc; apply Rle_Rinv_monotony.
 apply INR_B_non_nul.
 rewrite RIneq.Rmult_1_r.
-replace 4 with (INR 4) by (simpl; ring).
+replace (2*2) with (INR 4) by (simpl; ring).
 generalize B_sup_4; apply le_INR.
 do 2 rewrite plus_IZR; do 2 rewrite <- Z_R_minus; simpl; ring.
 apply
@@ -77,7 +77,7 @@ rewrite <- Rmult_assoc; rewrite RIneq.Rmult_1_r.
 rewrite Rmult_comm; rewrite <- Rmult_assoc.
 replace (/ INR B * INR B) with 1.
 rewrite Rmult_comm; rewrite RIneq.Rmult_1_r.
-replace 4 with (INR 4) by (simpl; ring).
+replace (2*2) with (INR 4) by (simpl; ring).
 generalize B_sup_4; apply le_INR.
 apply Rinv_l_sym.
 apply Rgt_not_eq; apply Rlt_gt; apply INR_B_non_nul.

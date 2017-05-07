@@ -195,9 +195,9 @@ intro.
 rewrite <- H1.
 rewrite Rabs_R0.
 apply Rmult_0_r.
-intro; replace (sg r) with (-1)%Z;
+intro; replace (sg r) with (-(1))%Z;
  [ idtac | symmetry  in |- *; apply sg_neg; auto ].
-simpl in |- *.
+simpl in |- *. unfold IZR.
 rewrite Ropp_mult_distr_l_reverse; rewrite Rmult_1_l.
 symmetry  in |- *; apply Rabs_left.
 auto.
@@ -223,7 +223,7 @@ rewrite Rabs_R0.
 symmetry  in |- *; apply Rmult_0_r.
 intro; replace (sg r) with (-1)%Z;
  [ idtac | symmetry  in |- *; apply sg_neg; auto ].
-simpl in |- *.
+simpl in |- *. unfold IZR.
 rewrite Ropp_mult_distr_l_reverse; rewrite Rmult_1_l.
 pattern r at 1 in |- *; RingReplace r (- - r).
 apply Ropp_eq_compat; symmetry  in |- *; apply Rabs_left.

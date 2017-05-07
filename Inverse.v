@@ -94,7 +94,7 @@ RingReplace (0 + 1) 1.
 RingReplace 1 (IZR (Zsucc 0)); apply IZR_lt; apply msd_c_ter.
 rewrite RIneq.Rmult_1_r.
 apply Rle_add_compatibility.
-RingReplace 2 (IZR (Zsucc (Zsucc 0))); apply IZR_le.
+RingReplace (1+1) (IZR (Zsucc (Zsucc 0))); apply IZR_le.
 apply Zlt_le_succ; apply msd_c_ter.
 
 intro.

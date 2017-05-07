@@ -43,8 +43,8 @@ intro; elim H1.
 intro; rewrite <- H2; replace (sg X) with 0%Z;
  [ simpl in |- *; rewrite Rmult_0_r; tauto
  | symmetry  in |- *; apply sg_nul; auto ].
-intro; replace (sg X) with (-1)%Z;
- [ simpl in |- * | symmetry  in |- *; apply sg_neg; auto ].
+intro; replace (sg X) with (-(1))%Z;
+ [ simpl in |- * | symmetry  in |- *; apply sg_neg; auto ]. replace (-1)%R with (-(1))%R by auto.
 intro; repeat rewrite Ropp_mult_distr_l_reverse; rewrite Rmult_1_l. 
 pattern 1%R at 2 in |- *; RingReplace 1%R (- -1)%R; apply Rlt_2_Ropp_r; tauto.
 intro.
@@ -55,7 +55,8 @@ replace (Zabs (XC n)) with (- XC n)%Z;
 replace (sg X) with (-1)%Z;
  [ simpl in |- *
  | symmetry  in |- *; apply sg_neg; apply sg_Zsgn_2 with XC n;
-    [ auto | auto ] ]. 
+    [ auto | auto ] ].
+replace (-1)%R with (-(1))%R by auto.
 intro; repeat rewrite Ropp_mult_distr_l_reverse; rewrite Rmult_1_l.
 RingReplace (- IZR (XC n) - 1)%R (- (IZR (XC n) + 1))%R;
  RingReplace (- IZR (XC n) + 1)%R (- (IZR (XC n) - 1))%R.

@@ -264,6 +264,7 @@ rewrite Rmult_comm; rewrite Rmult_plus_distr_r.
 rewrite Rmult_comm; rewrite <- Rmult_assoc. 
 RingReplace (-1 * -1) 1; RingReplace (1 * -1) (-1).
 rewrite Rmult_comm; rewrite RIneq.Rmult_1_r.
+replace (-1)%R with (-(1))%R at 1 by auto.
 rewrite Rplus_comm; rewrite <- Rsub_sym.
 do 2 rewrite <- Rmult_assoc.
 RingReplace (-1 * -1) 1.
