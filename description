@@ -1,10 +1,10 @@
 Name: ExactRealArithmetic
 Title: Exact Real Arithmetic
-Author: Jérôme Creci
-Institution: LRI, Université Paris Sud
+Author: JÃ©rÃ´me Creci
+Institution: LRI, UniversitÃ© Paris Sud
 Description: This contribution contains a proof of correctness 
   of some exact real arithmetic algorithms from the PhD thesis of
-  Valérie Ménissier-Morain
+  ValÃ©rie MÃ©nissier-Morain
 Keywords: correctness, real numbers, arithmetic
 Version: 7.3
 
