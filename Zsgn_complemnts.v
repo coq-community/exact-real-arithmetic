@@ -4,7 +4,7 @@
 Require Import ZArith.
 Require Import Reals.
 
-Lemma Zsgn_mult : forall z z1 : Z, (Zsgn z * Zsgn z1)%Z = Zsgn (z * z1). 
+Lemma Zsgn_mult : forall z z1 : Z, (Z.sgn z * Z.sgn z1)%Z = Z.sgn (z * z1). 
 
 Proof.
 intros.
@@ -15,7 +15,7 @@ Hint Resolve Zsgn_mult: real.
 
 
 
-Lemma Zsgn_trivial : forall z z1 : Z, z = z1 -> Zsgn z = Zsgn z1.
+Lemma Zsgn_trivial : forall z z1 : Z, z = z1 -> Z.sgn z = Z.sgn z1.
 
 Proof.
 intros.
@@ -24,7 +24,7 @@ Qed.
 
 Hint Resolve Zsgn_trivial: real.
 
-Lemma Zsgn_neg : forall z : Z, (z < 0)%Z -> Zsgn z = (-1)%Z.
+Lemma Zsgn_neg : forall z : Z, (z < 0)%Z -> Z.sgn z = (-1)%Z.
 
 Proof.
 intro.
@@ -39,7 +39,7 @@ Qed.
 Hint Resolve Zsgn_neg: real.
 
 
-Lemma Zsgn_pos : forall z : Z, (0 < z)%Z -> Zsgn z = 1%Z.
+Lemma Zsgn_pos : forall z : Z, (0 < z)%Z -> Z.sgn z = 1%Z.
 
 Proof.
 intro.
@@ -54,7 +54,7 @@ Qed.
 Hint Resolve Zsgn_pos: real. 
 
 
-Lemma Zsgn_nul : forall z : Z, 0%Z = z -> Zsgn z = 0%Z.
+Lemma Zsgn_nul : forall z : Z, 0%Z = z -> Z.sgn z = 0%Z.
 
 Proof.
 intros.

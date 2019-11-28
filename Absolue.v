@@ -23,9 +23,9 @@ elim H0.
 intro.
 elim a.
 intro.
-replace (Zabs (XC n)) with (XC n);
+replace (Z.abs (XC n)) with (XC n);
  [ rewrite <- sg.Rabsolu_sg
- | symmetry  in |- *; apply Zabs_eq; apply Zlt_le_weak; auto ].
+ | symmetry  in |- *; apply Z.abs_eq; apply Zlt_le_weak; auto ].
 replace (sg X) with 1%Z;
  [ simpl in |- *; rewrite Rmult_1_l; tauto
  | symmetry  in |- *; apply sg_pos; apply sg_Zsgn with XC n; [ auto | auto ] ]. 
@@ -48,9 +48,9 @@ intro; replace (sg X) with (-(1))%Z;
 intro; repeat rewrite Ropp_mult_distr_l_reverse; rewrite Rmult_1_l. 
 pattern 1%R at 2 in |- *; RingReplace 1%R (- -1)%R; apply Rlt_2_Ropp_r; tauto.
 intro.
-replace (Zabs (XC n)) with (- XC n)%Z;
+replace (Z.abs (XC n)) with (- XC n)%Z;
  [ rewrite Ropp_Ropp_IZR; rewrite <- sg.Rabsolu_sg
- | symmetry  in |- *; apply Zabs_non_eq; apply Zlt_le_weak; apply Zgt_lt;
+ | symmetry  in |- *; apply Zabs_non_eq; apply Zlt_le_weak; apply Z.gt_lt;
     auto ].
 replace (sg X) with (-1)%Z;
  [ simpl in |- *
@@ -61,7 +61,7 @@ intro; repeat rewrite Ropp_mult_distr_l_reverse; rewrite Rmult_1_l.
 RingReplace (- IZR (XC n) - 1)%R (- (IZR (XC n) + 1))%R;
  RingReplace (- IZR (XC n) + 1)%R (- (IZR (XC n) - 1))%R.
 apply Rlt_2_Ropp_r; auto.
-unfold Zlt in |- *; unfold Zgt in |- *.
+unfold Z.lt in |- *; unfold Z.gt in |- *.
 apply Zcompare_rec with (n := 0%Z) (m := XC n).
 intro; left; right.
 generalize (Zcompare_Eq_iff_eq 0 (XC n)).

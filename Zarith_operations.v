@@ -46,7 +46,7 @@ Hint Resolve Zle_not_lt: zarith.
 
 
 Lemma Zle_2_Zs :
- forall z z1 : Z, (z1 <= z <= Zsucc z1)%Z -> z = z1 \/ z = Zsucc z1.
+ forall z z1 : Z, (z1 <= z <= Z.succ z1)%Z -> z = z1 \/ z = Z.succ z1.
 Proof.
 intros z z1 h. omega.
 Qed.
@@ -54,10 +54,10 @@ Hint Resolve Zle_2_Zs: zarith.
 
 
 Lemma Zle_2_Zs_dec :
- forall z z1 : Z, (z1 <= z <= Zsucc z1)%Z -> {z = z1} + {z = Zsucc z1}.
+ forall z z1 : Z, (z1 <= z <= Z.succ z1)%Z -> {z = z1} + {z = Z.succ z1}.
 Proof.
 intros z z1 h. 
-elim (Z_lt_ge_dec z (Zsucc z1)); intro.
+elim (Z_lt_ge_dec z (Z.succ z1)); intro.
 left; omega.
 right; omega.
 Qed.

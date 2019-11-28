@@ -10,7 +10,7 @@ Definition Zmax (n m : Z) :=
   | Datatypes.Lt => m
   end. 
 
-Lemma Zmax_SS : forall n m : Z, Zsucc (Zmax n m) = Zmax (Zsucc n) (Zsucc m). 
+Lemma Zmax_SS : forall n m : Z, Z.succ (Zmax n m) = Zmax (Z.succ n) (Z.succ m). 
 Proof.
 intros n m; unfold Zmax in |- *; rewrite (Zcompare_succ_compat n m);
  elim_compare n m; intros E; rewrite E; auto with arith.
@@ -19,15 +19,15 @@ Qed.
 Lemma Zle_max_l : forall n m : Z, (n <= Zmax n m)%Z. 
 Proof.
 intros n m; unfold Zmax in |- *; elim_compare n m; intros E; rewrite E;
- [ apply Zle_refl | apply Zlt_le_weak; exact E | apply Zle_refl ].
+ [ apply Z.le_refl | apply Zlt_le_weak; exact E | apply Z.le_refl ].
 Qed. 
 
 Lemma Zle_max_r : forall n m : Z, (m <= Zmax n m)%Z. 
 Proof.
 intros n m; unfold Zmax in |- *; elim_compare n m; intros E; rewrite E;
- [ apply Zge_le; unfold Zge in |- *; rewrite E; discriminate
- | apply Zle_refl
- | apply Zge_le; unfold Zge in |- *; rewrite E; discriminate ].
+ [ apply Z.ge_le; unfold Z.ge in |- *; rewrite E; discriminate
+ | apply Z.le_refl
+ | apply Z.ge_le; unfold Z.ge in |- *; rewrite E; discriminate ].
 Qed. 
 
 Lemma Zmax_case : forall (n m : Z) (P : Z -> Set), P n -> P m -> P (Zmax n m).

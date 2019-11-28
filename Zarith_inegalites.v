@@ -3,11 +3,11 @@
 
 Require Import ZArith.
 
-Lemma Zlt_le_Zs : forall z z1 : Z, (Zsucc z <= z1)%Z -> (z < z1)%Z.
+Lemma Zlt_le_Zs : forall z z1 : Z, (Z.succ z <= z1)%Z -> (z < z1)%Z.
 
 Proof. 
 intros.
-apply Zlt_le_trans with (Zsucc z).
+apply Z.lt_le_trans with (Z.succ z).
 apply Zlt_succ.
 auto.
 Qed.

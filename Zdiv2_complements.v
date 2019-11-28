@@ -6,7 +6,7 @@ Require Import Reals.
 
 
 Lemma Zodd_quot2_bis :
- forall x : Z, (x <= 0)%Z -> Zeven.Zodd x -> x = (2 * Zeven.Zquot2 x - 1)%Z.
+ forall x : Z, (x <= 0)%Z -> Zeven.Zodd x -> x = (2 * Z.quot2 x - 1)%Z.
 
 Proof.
 destruct x.
