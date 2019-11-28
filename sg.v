@@ -2,7 +2,7 @@
 (* the terms of the LGPL license (see LICENSE and description files) *)
 
 Require Import Reals.
-Require Import Fourier.
+Require Import Psatz.
 Require Import Rbase_inegalites.
 Require Import Rabsolu_complements.
 Require Import Tactiques.
@@ -24,8 +24,8 @@ unfold sg in |- *.
 case (total_order_T r 0).
 simple destruct s; intro.
 auto.
-fourier.
-intro; fourier.
+lra.
+intro; lra.
 Qed.
 Hint Resolve sg_neg: real.
 
@@ -36,8 +36,8 @@ intros.
 unfold sg in |- *.
 case (total_order_T r 0).
 simple destruct s; intro.
-fourier.
-fourier.
+lra.
+lra.
 intro; auto.
 Qed.
 Hint Resolve sg_pos: real. 
@@ -49,9 +49,9 @@ intros.
 unfold sg in |- *.
 case (total_order_T r 0).
 simple destruct s; intro.
-fourier.
+lra.
 auto.
-intro; fourier.
+intro; lra.
 Qed.
 Hint Resolve sg_nul: real. 
 

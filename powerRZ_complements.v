@@ -4,14 +4,13 @@
 Require Import Reals.
 Require Import Rbase_inegalites.
 Require Import Tactiques.
-Require Import Fourier.
-Require Import Omega.
+Require Import Psatz.
 
 Lemma powerRZ_Zs :
- forall (r : R) (z : Z), r <> 0 -> powerRZ r (Zsucc z) = powerRZ r z * r. 
+ forall (r : R) (z : Z), r <> 0 -> powerRZ r (Z.succ z) = powerRZ r z * r. 
 Proof.
 intros.
-unfold Zsucc in |- *.
+unfold Z.succ in |- *.
 replace (powerRZ r z * r) with (powerRZ r z * powerRZ r 1).
 apply powerRZ_add.
 auto.
@@ -53,9 +52,9 @@ apply Rmult_lt_reg_l with (/ powerRZ r z).
 apply Rinv_0_lt_compat.
 apply powerRZ_lt.
 apply Rlt_trans with 1.
-fourier.
+lra.
 exact H.
-apply Rfourier_gt_to_lt.
+apply Rgt_lt.
 rewrite Rmult_comm.
 rewrite Rmult_assoc.
 apply Rlt_gt.
@@ -72,14 +71,14 @@ apply powerRZ_NOR.
 apply Rgt_not_eq.
 apply Rlt_gt.
 apply Rlt_trans with 1.
-fourier.
+lra.
 exact H.
 symmetry  in |- *.
 apply powerRZ_add.
 apply Rgt_not_eq.
 apply Rlt_gt.
 apply Rlt_trans with 1.
-fourier.
+lra.
 exact H.
 
 Qed.
@@ -98,7 +97,7 @@ inversion H0.
 2: intros; inversion H0.
 intros.
 pattern r at 1 in |- *.
-replace r with (powerRZ r (Zsucc 0)). 
+replace r with (powerRZ r (Z.succ 0)). 
 apply powerRZ_croissance.
 exact H.
 exact H0.
@@ -145,10 +144,10 @@ Proof.
 intros.
 elim n.
 simpl in |- *.
-fourier.
+lra.
 intros; simpl in |- *.
 RingReplace 1 (1 * 1).
-apply Rmult_le_compat; [ fourier | fourier | auto | auto ].
+apply Rmult_le_compat; [ lra | lra | auto | auto ].
 Qed.
 
 Hint Resolve derniere_chance: real.
@@ -162,20 +161,20 @@ Proof.
 intros.
 apply Rmult_le_reg_l with (powerRZ r (- z)).
 apply powerRZ_lt; apply Rlt_le_trans with 1.
-fourier.
+lra.
 auto.
 replace (powerRZ r (- z) * powerRZ r z) with (powerRZ r (- z + z)).
 replace (powerRZ r (- z) * powerRZ r z1) with (powerRZ r (- z + z1)).
 rewrite Zplus_opp_l; rewrite powerRZ_O.
 2: apply powerRZ_add; apply Rgt_not_eq; apply Rlt_gt; auto.
 3: apply powerRZ_add; apply Rgt_not_eq; apply Rlt_gt; auto.
-2: apply Rlt_le_trans with 1; fourier; auto.
-2: apply Rlt_le_trans with 1; fourier; auto.
+2: apply Rlt_le_trans with 1; lra; auto.
+2: apply Rlt_le_trans with 1; lra; auto.
 cut (0 <= - z + z1)%Z; [ idtac | rewrite Zplus_comm; apply Zle_left; auto ].
 intro.
 generalize H1.
 case (- z + z1)%Z; clear H1; intros.
-simpl in |- *; fourier.
+simpl in |- *; lra.
 unfold powerRZ in |- *; apply derniere_chance; auto.
 absurd (0 <= Zneg p)%Z; auto with zarith.
 Qed.
@@ -189,10 +188,10 @@ Proof.
 intros r z. 
 case z.
 intros.
-absurd (1 <= 0)%Z; omega.
+absurd (1 <= 0)%Z; lia.
 intros.
 pattern r at 1 in |- *.
-replace r with (powerRZ r (Zsucc 0)); [ idtac | apply powerRZ_1 ].
+replace r with (powerRZ r (Z.succ 0)); [ idtac | apply powerRZ_1 ].
 apply Rle_powerRZ. 
 auto.
 auto.

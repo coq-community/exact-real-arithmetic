@@ -5,7 +5,7 @@ Require Import ZArith.
 Require Import Reals.
 
 
-Lemma Zabs_mult : forall z1 z2 : Z, Zabs (z1 * z2) = (Zabs z1 * Zabs z2)%Z.
+Lemma Zabs_mult : forall z1 z2 : Z, Z.abs (z1 * z2) = (Z.abs z1 * Z.abs z2)%Z.
 
 Proof.
 intros.
@@ -27,7 +27,7 @@ Qed.
 Hint Resolve Zabs_mult: real.
 
 
-Lemma Zabs_O : forall z : Z, Zabs z = 0%Z -> z = 0%Z.
+Lemma Zabs_O : forall z : Z, Z.abs z = 0%Z -> z = 0%Z.
 
 Proof.
 intro z.
@@ -40,11 +40,11 @@ Qed.
 Hint Resolve Zabs_O: real.
 
 
-Lemma Zabs_lt_0 : forall z : Z, z <> 0%Z -> (Zabs z > 0)%Z.
+Lemma Zabs_lt_0 : forall z : Z, z <> 0%Z -> (Z.abs z > 0)%Z.
 
 Proof.
 intro.
-unfold Zabs in |- *.
+unfold Z.abs in |- *.
 case z.
 intuition.
 auto with zarith.
@@ -54,10 +54,10 @@ Qed.
 Hint Resolve Zabs_lt_0: zarith.
 
 
-Lemma Zabs_not_eq : forall z : Z, (Zabs z > 0)%Z -> z <> 0%Z.
+Lemma Zabs_not_eq : forall z : Z, (Z.abs z > 0)%Z -> z <> 0%Z.
 Proof.
 intro.
-unfold Zabs in |- *.
+unfold Z.abs in |- *.
 case z; intro.
 inversion H.
 auto with zarith.
@@ -70,10 +70,10 @@ Hint Resolve Zabs_not_eq: zarith.
 
 
 Lemma Zabs_01 :
- forall x a : Z, (0 <= a)%Z -> (x <= a)%Z -> (a < Zabs x)%Z -> (x < 0)%Z.
+ forall x a : Z, (0 <= a)%Z -> (x <= a)%Z -> (a < Z.abs x)%Z -> (x < 0)%Z.
 Proof.
 intros x a H.
-unfold Zabs in |- *.
+unfold Z.abs in |- *.
 case x; intros.
 omega.
 omega.

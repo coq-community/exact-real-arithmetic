@@ -6,7 +6,7 @@ Require Import Tactiques.
 Require Import Axiomes.
 Require Export Lemmes_generaux.
 Require Import Lemmes.
-Require Import Fourier.
+Require Import Psatz.
 Require Import powerRZ_complements.
 Require Import Rbase_operations.
 Require Import Rbase_doubles_inegalites.
@@ -34,9 +34,9 @@ apply INR_B_non_nul.
 do 2 rewrite plus_IZR.
 unfold B_powerRZ in |- *.
 rewrite Rmult_assoc;
- replace (powerRZ (INR B) n * INR B) with (powerRZ (INR B) (Zsucc n)). 
+ replace (powerRZ (INR B) n * INR B) with (powerRZ (INR B) (Z.succ n)). 
 2: apply powerRZ_Zs; apply Rgt_not_eq; apply Rlt_gt; apply INR_B_non_nul.
-generalize (H (Zsucc n)) (H1 (Zsucc n)); unfold B_powerRZ in |- *; intros;
+generalize (H (Z.succ n)) (H1 (Z.succ n)); unfold B_powerRZ in |- *; intros;
  clear H H1. 
 rewrite Rmult_plus_distr_r.
 apply Rlt_2_monotony.
@@ -50,10 +50,10 @@ rewrite Rmult_comm; apply Rle_sub_compatibility.
 rewrite Rplus_comm; rewrite Rsub_sym; rewrite <- Rplus_assoc.
 replace (1 + - (1 * / 2)) with (1 * / 2).
 rewrite Rplus_comm; auto.
-field; apply Rgt_not_eq; fourier.
+field; apply Rgt_not_eq; lra.
 apply Rle_sub_r.
 apply Rle_mult_inv.
-fourier.
+lra.
 rewrite Rmult_assoc; apply Rle_Rinv_monotony.
 apply INR_B_non_nul.
 rewrite RIneq.Rmult_1_r.
@@ -69,7 +69,7 @@ rewrite Rplus_comm; apply Rge_le; rewrite Rplus_comm; apply Rle_ge;
  apply Rplus_le_compat_r.
 RingReplace (IZR (1 + 1)) 2.
 apply Rle_mult_inv.
-fourier.
+lra.
 rewrite Rmult_comm; rewrite <- Rmult_assoc.
 apply Rmult_le_reg_l with (INR B).
 apply INR_B_non_nul.
@@ -85,7 +85,7 @@ rewrite Rmult_comm; apply Rlt_add_compatibility3.
 rewrite Rsub_sym; rewrite Rplus_comm; rewrite Rplus_assoc.
 replace (1 + - (1 * / 2)) with (1 * / 2).
 apply Rlt_add_compatibility2; auto.
-field; apply Rgt_not_eq; apply Rlt_gt; fourier.
+field; apply Rgt_not_eq; apply Rlt_gt; lra.
 Qed.
 
 

@@ -2,7 +2,7 @@
 (* the terms of the LGPL license (see LICENSE and description files) *)
 
 Require Import Reals.
-Require Import Fourier.
+Require Import Psatz.
 Require Import Tactiques.
 Require Import Rbase_operations.
 Require Import Rbase_inegalites.
@@ -66,14 +66,14 @@ split.
 apply Rle_sub_compatibility.
 rewrite Rplus_comm; rewrite Rsub_sym; rewrite <- Rplus_assoc.
 replace (1 + - (1 * / 2)) with (1 * / 2);
- [ idtac | field; apply Rgt_not_eq; fourier ].
+ [ idtac | field; apply Rgt_not_eq; lra ].
 elim H; intros.
 rewrite Rplus_comm; auto.
 
 apply Rlt_add_compatibility2.
 rewrite Rplus_comm; rewrite Rsub_sym; rewrite <- Rplus_assoc.
 replace (-(1) + 1 * / 2) with (- (1 * / 2));
- [ idtac | field; apply Rgt_not_eq; fourier ].
+ [ idtac | field; apply Rgt_not_eq; lra ].
 rewrite <- Rsub_sym.
 elim H; intros; assumption.
 Qed.
@@ -87,7 +87,7 @@ intros.
 elim H0; intros; clear H0; split.
 apply mega_nul; auto; rewrite Rmult_comm; auto.
 apply Rmult_lt_reg_l with r; auto.
-rewrite Rmult_comm; apply Rfourier_gt_to_lt; rewrite Rmult_comm;
+rewrite Rmult_comm; apply Rgt_lt; rewrite Rmult_comm;
  rewrite Rmult_assoc. 
 rewrite <- Rinv_l_sym;
  [ rewrite RIneq.Rmult_1_r; apply Rlt_gt; auto
@@ -115,10 +115,10 @@ intros.
 elim H0; intros; clear H0.
 split.
 apply Rmult_lt_reg_l with r; auto.
-rewrite Rmult_comm; apply Rfourier_gt_to_lt; rewrite Rmult_comm; apply Rlt_gt;
+rewrite Rmult_comm; apply Rgt_lt; rewrite Rmult_comm; apply Rlt_gt;
  auto.
 apply Rmult_lt_reg_l with r; auto.
-rewrite Rmult_comm; apply Rfourier_gt_to_lt; rewrite Rmult_comm; apply Rlt_gt;
+rewrite Rmult_comm; apply Rgt_lt; rewrite Rmult_comm; apply Rlt_gt;
  auto.
 Qed.
 Hint Resolve Rlt_2_monotony_rev: real.

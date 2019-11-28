@@ -25,13 +25,13 @@ Axiom
 Axiom
   msd_c :
     forall xc : Reelc,
-    (forall n : Z, (n < msd xc)%Z -> (Zabs (xc n) <= 1)%Z) /\
-    (Zabs (xc (msd xc)) > 1)%Z. 
+    (forall n : Z, (n < msd xc)%Z -> (Z.abs (xc n) <= 1)%Z) /\
+    (Z.abs (xc (msd xc)) > 1)%Z. 
 
 Lemma intermediaire :
  forall (xc : Reelc) (m : Z),
  msd xc = m ->
- (forall n : Z, (n < m)%Z -> (Zabs (xc n) <= 1)%Z) /\ (Zabs (xc m) > 1)%Z.
+ (forall n : Z, (n < m)%Z -> (Z.abs (xc n) <= 1)%Z) /\ (Z.abs (xc m) > 1)%Z.
 Proof.                  
 intros xc m a.
 rewrite <- a.
@@ -40,7 +40,7 @@ Qed.
 
 Lemma msd_c_bis :
  forall (xc : Reelc) (m : Z),
- (forall n : Z, (n < m)%Z -> (Zabs (xc n) <= 1)%Z) /\ (Zabs (xc m) > 1)%Z ->
+ (forall n : Z, (n < m)%Z -> (Z.abs (xc n) <= 1)%Z) /\ (Z.abs (xc m) > 1)%Z ->
  msd xc = m. 
 Proof.
 intros xc m (H1, H2).
@@ -52,22 +52,22 @@ generalize (H0 m H); intro; omega.
 generalize (H1 (msd xc) H4); intro; omega.
 Qed.
 
-Lemma msd_c_ter : forall xc : Reelc, (1 < Zabs (xc (msd xc)))%Z.
+Lemma msd_c_ter : forall xc : Reelc, (1 < Z.abs (xc (msd xc)))%Z.
 Proof.
 intros.
-apply Zgt_lt.
+apply Z.gt_lt.
 generalize (msd_c xc); intros (h1, h2).
-generalize (h1 (Zpred (msd xc))); auto.
+generalize (h1 (Z.pred (msd xc))); auto.
 Qed.
 
 
-Lemma msd_c_4 : forall xc : Reelc, (IZR (Zabs (xc (Zpred (msd xc)))) <= 1)%R.
+Lemma msd_c_4 : forall xc : Reelc, (IZR (Z.abs (xc (Z.pred (msd xc)))) <= 1)%R.
 Proof.
 intros.
-RingReplace 1%R (IZR (Zsucc 0)); apply IZR_le.
+RingReplace 1%R (IZR (Z.succ 0)); apply IZR_le.
 simpl in |- *.
 generalize (msd_c xc); intros (h1, h2).
-generalize (h1 (Zpred (msd xc))); intro.
+generalize (h1 (Z.pred (msd xc))); intro.
 auto with zarith.
 Qed.
 

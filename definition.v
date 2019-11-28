@@ -33,7 +33,7 @@ Parameter le_nat : R -> nat.
 
 Definition oppose_reelc (xc : Reelc) : Reelc := fun n : Z => (- xc n)%Z.
 
-Definition absolue_reelc (xc : Reelc) : Reelc := fun n : Z => Zabs (xc n).
+Definition absolue_reelc (xc : Reelc) : Reelc := fun n : Z => Z.abs (xc n).
 
 Definition addition_reelc (xc yc : Reelc) : Reelc :=
   fun n : Z => gauss_z_sur_B (xc (n + 1)%Z + yc (n + 1)%Z).
@@ -41,12 +41,12 @@ Definition addition_reelc (xc yc : Reelc) : Reelc :=
 Parameter msd : Reelc -> Z.
 
 Definition p_max (xc : Reelc) (n : Z) : Z :=
-  Zmax (n - msd xc + 3) (Zeven.Zquot2 (n + 2)). 
+  Zmax (n - msd xc + 3) (Z.quot2 (n + 2)). 
 
 Definition multiplication_reelc (xc yc : Reelc) : Reelc :=
   fun n : Z =>
-  (Zsgn (xc (p_max yc n)) * Zsgn (yc (p_max xc n)) *
-   gauss_z_sur_B_pow (1 + Zabs (xc (p_max yc n) * yc (p_max xc n)))
+  (Z.sgn (xc (p_max yc n)) * Z.sgn (yc (p_max xc n)) *
+   gauss_z_sur_B_pow (1 + Z.abs (xc (p_max yc n) * yc (p_max xc n)))
      (p_max yc n + p_max xc n - n))%Z.
 
 Require Import Zdiv.
@@ -54,7 +54,7 @@ Require Import Zdiv.
 Definition Zdiv_sup (a b : Z) :=
   match Z_zerop (a mod b) with
   | left _ => (a / b)%Z
-  | right _ => Zsucc (a / b)
+  | right _ => Z.succ (a / b)
   end.
 
 Definition inverse_reelc (xc : Reelc) : Reelc :=
@@ -72,7 +72,7 @@ Definition inverse_reelc (xc : Reelc) : Reelc :=
   end.    
 
 Definition racine_reelc (xc : Reelc) : Reelc :=
-  fun n : Z => Z.sqrt (xc (Zsucc (Zsucc 0) * n)%Z).
+  fun n : Z => Z.sqrt (xc (Z.succ (Z.succ 0) * n)%Z).
 
 
 
