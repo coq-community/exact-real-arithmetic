@@ -32,7 +32,7 @@ Plans for fixing are as follows:
 
 ## In the meantime.
 
-There exists other implementation of exact real arithmetic.  Interested users
+There exist other implementations of exact real arithmetic.  Interested users
 should look at the work of Russell O'Connor, Robbert Krebbers, and
 Bas Spitters, where the proofs rely on the CoRN presentation of constructive
 reals.
