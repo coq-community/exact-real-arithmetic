@@ -183,7 +183,7 @@ elim H; intros; clear H.
 elim H0; intros; clear H0.
 split; apply Rmult_le; auto with real.
 Qed.
-Hint Resolve Rle_mult_lt. 
+Hint Resolve Rle_mult_lt : real.
 
 
 Lemma Rlt_2_trans :

@@ -37,14 +37,7 @@ apply powerRZ_lt.
 apply INR_B_non_nul.
 Qed.
 
-Hint Resolve powerRZ_INR_B_non_nul.
-
-Lemma super_lemme : forall z z1 : Z, z = 0%Z -> 0%Z = (z1 * z)%Z.
-
-Proof.
-intros.
-rewrite H; rewrite <- Zmult_0_r_reverse; auto.
-Qed.
+Hint Resolve powerRZ_INR_B_non_nul : real.
 
 Lemma sg_Zsgn :
  forall (x : R) (xc : Reelc) (n : Z),
@@ -238,13 +231,14 @@ Lemma Zsgn_to_sg :
 Proof.
 intros.
 apply IZR_trivial.
-pattern (yc (p_max xc n)) in |- *.
+pattern (yc (p_max xc n)).
 apply Zabs_ind_4.
 intro.
 rewrite H2; rewrite <- Zmult_0_r_reverse; rewrite Zmult_comm;
  do 2 rewrite <- Zmult_0_r_reverse.
 simpl in |- *.
-apply super_lemme.
+set (U := gauss_z_sur_B_pow _ _); replace U with 0%Z; try ring.
+symmetry.
 apply one_IZR_lt1.
 apply
  Rle_lt_2_lt
@@ -286,8 +280,8 @@ intro.
 replace (Z.sgn (xc (p_max yc n))) with (sg x).
 replace (Z.sgn (yc (p_max xc n))) with (sg y).
 auto.
-symmetry  in |- *; apply Zsgn_sg; auto; auto.
-symmetry  in |- *; apply Zsgn_sg; auto; auto.
+symmetry; apply Zsgn_sg; auto; auto.
+symmetry; apply Zsgn_sg; auto; auto.
 Qed.
 
 Hint Resolve Zsgn_to_sg: real. 
