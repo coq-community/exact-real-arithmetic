@@ -87,9 +87,3 @@ replace (1 + - (1 * / 2)) with (1 * / 2).
 apply Rlt_add_compatibility2; auto.
 field; apply Rgt_not_eq; apply Rlt_gt; lra.
 Qed.
-
-
-
-
-
-

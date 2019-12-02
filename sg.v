@@ -196,13 +196,13 @@ rewrite <- H1.
 rewrite Rabs_R0.
 apply Rmult_0_r.
 intro; replace (sg r) with (-(1))%Z;
- [ idtac | symmetry  in |- *; apply sg_neg; auto ].
-simpl in |- *. unfold IZR.
+ [ idtac | symmetry; apply sg_neg; auto ].
+rewrite Ropp_Ropp_IZR.
 rewrite Ropp_mult_distr_l_reverse; rewrite Rmult_1_l.
-symmetry  in |- *; apply Rabs_left.
+symmetry; apply Rabs_left.
 auto.
 Qed.
-Hint Resolve sg.Rabsolu_sg: real.
+Hint Resolve Rabsolu_sg: real.
 
 
 Lemma Rabsolu_sg_bis : forall r : R, r = IZR (sg r) * Rabs r.
@@ -221,12 +221,12 @@ intro.
 rewrite <- H1.
 rewrite Rabs_R0.
 symmetry  in |- *; apply Rmult_0_r.
-intro; replace (sg r) with (-1)%Z;
- [ idtac | symmetry  in |- *; apply sg_neg; auto ].
-simpl in |- *. unfold IZR.
+intro; replace (sg r) with (-(1))%Z;
+ [ idtac | symmetry; apply sg_neg; auto ].
+rewrite Ropp_Ropp_IZR.
 rewrite Ropp_mult_distr_l_reverse; rewrite Rmult_1_l.
 pattern r at 1 in |- *; RingReplace r (- - r).
 apply Ropp_eq_compat; symmetry  in |- *; apply Rabs_left.
 auto.
 Qed.
-Hint Resolve sg.Rabsolu_sg_bis: real.
+Hint Resolve Rabsolu_sg_bis: real.

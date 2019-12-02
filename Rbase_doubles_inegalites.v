@@ -2,7 +2,7 @@
 (* the terms of the LGPL license (see LICENSE and description files) *)
 
 Require Import Reals.
-Require Import Psatz.
+Require Import Lra.
 Require Import Tactiques.
 Require Import Rbase_operations.
 Require Import Rbase_inegalites.
@@ -72,8 +72,8 @@ rewrite Rplus_comm; auto.
 
 apply Rlt_add_compatibility2.
 rewrite Rplus_comm; rewrite Rsub_sym; rewrite <- Rplus_assoc.
-replace (-(1) + 1 * / 2) with (- (1 * / 2));
- [ idtac | field; apply Rgt_not_eq; lra ].
+replace (-(1) + 1 * / 2) with (- (1 * / 2)) by
+ ( field; apply Rgt_not_eq; lra).
 rewrite <- Rsub_sym.
 elim H; intros; assumption.
 Qed.
@@ -130,7 +130,7 @@ intros.
 apply penible.
 generalize H; apply Rabs_def2.
 Qed.
-Hint Resolve Rbase_doubles_inegalites.Rabsolu_def3: real.
+Hint Resolve Rabsolu_def3: real.
 
 
 Lemma Rle_lt_2_lt :

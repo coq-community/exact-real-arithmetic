@@ -24,7 +24,7 @@ intro.
 elim a.
 intro.
 replace (Z.abs (XC n)) with (XC n);
- [ rewrite <- sg.Rabsolu_sg
+ [ rewrite <- Rabsolu_sg
  | symmetry  in |- *; apply Z.abs_eq; apply Zlt_le_weak; auto ].
 replace (sg X) with 1%Z;
  [ simpl in |- *; rewrite Rmult_1_l; tauto
@@ -34,7 +34,7 @@ intro.
 rewrite <- b; simpl in |- *; RingReplace (0 - 1)%R (-1)%R;
  RingReplace (0 + 1)%R 1%R. 
 cut ((0 < X)%R \/ 0%R = X \/ (0 > X)%R); [ intro | apply Rtotal_order ].
-rewrite <- sg.Rabsolu_sg.
+rewrite <- Rabsolu_sg.
 elim H0.
 intro; replace (sg X) with 1%Z;
  [ simpl in |- *; rewrite Rmult_1_l; tauto
@@ -43,23 +43,24 @@ intro; elim H1.
 intro; rewrite <- H2; replace (sg X) with 0%Z;
  [ simpl in |- *; rewrite Rmult_0_r; tauto
  | symmetry  in |- *; apply sg_nul; auto ].
-intro; replace (sg X) with (-(1))%Z;
- [ simpl in |- * | symmetry  in |- *; apply sg_neg; auto ]. replace (-1)%R with (-(1))%R by auto.
-intro; repeat rewrite Ropp_mult_distr_l_reverse; rewrite Rmult_1_l. 
-pattern 1%R at 2 in |- *; RingReplace 1%R (- -1)%R; apply Rlt_2_Ropp_r; tauto.
+intro; replace (sg X) with (-1)%Z;
+  [ simpl | now symmetry; apply sg_neg; auto ].
+replace  (-1 * X * B_powerRZ n)%R with  (- (X * B_powerRZ n))%R by ring.
+intro.
+pattern 1%R; RingReplace 1%R (- -1)%R; apply Rlt_2_Ropp_r; tauto.
 intro.
 replace (Z.abs (XC n)) with (- XC n)%Z;
- [ rewrite Ropp_Ropp_IZR; rewrite <- sg.Rabsolu_sg
+ [ rewrite Ropp_Ropp_IZR ; rewrite <- Rabsolu_sg
  | symmetry  in |- *; apply Zabs_non_eq; apply Zlt_le_weak; apply Z.gt_lt;
-    auto ].
+   auto ].
 replace (sg X) with (-1)%Z;
  [ simpl in |- *
  | symmetry  in |- *; apply sg_neg; apply sg_Zsgn_2 with XC n;
     [ auto | auto ] ].
-replace (-1)%R with (-(1))%R by auto.
-intro; repeat rewrite Ropp_mult_distr_l_reverse; rewrite Rmult_1_l.
+intro; repeat rewrite Ropp_mult_distr_l_reverse.
 RingReplace (- IZR (XC n) - 1)%R (- (IZR (XC n) + 1))%R;
  RingReplace (- IZR (XC n) + 1)%R (- (IZR (XC n) - 1))%R.
+replace  (-1 * X * B_powerRZ n)%R with  (- (X * B_powerRZ n))%R by ring.
 apply Rlt_2_Ropp_r; auto.
 unfold Z.lt in |- *; unfold Z.gt in |- *.
 apply Zcompare_rec with (n := 0%Z) (m := XC n).

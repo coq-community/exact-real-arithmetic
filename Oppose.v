@@ -27,5 +27,3 @@ RingReplace (- IZR (xc n) + 1)%R (- (IZR (xc n) - 1))%R.
 apply Rlt_2_Ropp_r.
 assumption.
 Qed.
-
-
