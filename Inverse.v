@@ -20,8 +20,7 @@ Require Import Psatz.
 Require Import Zarith_operations.
 Require Import Rbase_operations.
 
-Axiom
-  Zdiv_sup_opp :
+Axiom Zdiv_sup_opp :
     forall b c : Z, (c < 0)%Z -> (Z.sgn c * Zdiv_sup b (Z.abs c))%Z = (b / c)%Z.
 
 Lemma inverse_correct :
