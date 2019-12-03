@@ -71,6 +71,76 @@ cut ((1 < Z.abs (xc (p_max yc n)))%Z -> (msd xc <= p_max yc n)%Z);
 Qed.
 
 
+Lemma B_INR_1 : forall B, (4<=B)%nat -> 1 <= INR B.
+Proof.
+  intros.
+  replace 1 with (INR 1).
+  apply le_INR; omega.
+  reflexivity.
+Qed.
+
+Lemma B_INR_1' : forall B, (4<=B)%nat -> 1 < INR B.
+Proof.
+  intros.
+  replace 1 with (INR 1).
+  apply lt_INR; omega.
+  reflexivity.
+Qed.
+
+Lemma powerRZ_Int_part_Rabs : forall x:R,
+    x<>0 ->
+    powerRZ (INR B) (Int_part (Rlog (Rabs x) (INR B))) <= Rabs x.
+Proof.
+  intros.
+  rewrite powerRZ_Rpower.
+  apply Rle_trans with (Rpower (INR B) ( (Rlog (Rabs x) (INR B)))).
+  apply Rle_Rpower.
+  apply B_INR_1; apply B_sup_4.
+  destruct (base_Int_part (Rlog (Rabs x) (INR B))) as [b1 b2]; assumption.
+  unfold Rpower, Rlog.
+  replace (ln (Rabs x) / ln (INR B) * ln (INR B)) with (ln (Rabs x)).
+  rewrite exp_ln.
+  apply Rle_refl.
+  apply Rabs_pos_lt; assumption.
+  field.
+  rewrite <- ln_1.
+  apply Rgt_not_eq.
+  apply ln_increasing.
+  apply Rlt_0_1.
+  apply B_INR_1'; apply B_sup_4.
+  apply INR_B_non_nul.
+Qed.
+
+Lemma powerRZ_Int_part_Rabs2 : forall x:R,
+    x<>0 ->
+    Rabs x < powerRZ (INR B) (Int_part (Rlog (Rabs x) (INR B)) + Z.succ 0).
+Proof.
+  intros.
+  rewrite powerRZ_Rpower.
+  apply Rle_lt_trans with (Rpower (INR B) ( (Rlog (Rabs x) (INR B)))).
+  unfold Rpower, Rlog.
+  replace (ln (Rabs x) / ln (INR B) * ln (INR B)) with (ln (Rabs x)).
+  rewrite exp_ln.
+  apply Rle_refl.
+  apply Rabs_pos_lt; assumption.
+  field.
+  rewrite <- ln_1.
+  apply Rgt_not_eq.
+  apply ln_increasing.
+  apply Rlt_0_1.
+  apply B_INR_1'; apply B_sup_4.
+  apply Rpower_lt.
+  apply B_INR_1'; apply B_sup_4.
+  destruct (base_Int_part (Rlog (Rabs x) (INR B))) as [b1 b2].
+  rewrite plus_IZR.
+  apply Rgt_lt in b2.
+  apply Rplus_lt_reg_l with (- 1 - Rlog (Rabs x) (INR B)).
+  simpl;ring_simplify.
+  rewrite Rplus_comm.
+  assumption.
+  apply INR_B_non_nul.
+Qed.
+
 (*Probleme :reecrire toutes les ingalites dans R *)
 
 Lemma msd_prop1 :
@@ -145,11 +215,7 @@ replace
     generalize B_sup_4; omega ].
 rewrite Zopp_plus_distr; rewrite Zplus_comm; rewrite <- Zplus_succ_l;
  rewrite Z.opp_involutive; simpl in |- *.
-replace (powerRZ (INR B) (Int_part (Rlog (Rabs x) (INR B)))) with (Rabs x);
- [ auto with real | symmetry  in |- *; apply Rlog_powerRZ ].
-apply Rabs_pos_lt; auto.
-RingReplace 1 (INR 1).
-apply lt_INR; generalize B_sup_4; omega.
+apply powerRZ_Int_part_Rabs; assumption.
 cut (encadrement (absolue_reelc xc) (Rabs x)).
 unfold encadrement in |- *.
 intro.
@@ -183,11 +249,7 @@ replace (/ powerRZ (INR B) (- Int_part (Rlog (Rabs x) (INR B)))) with
  | symmetry  in |- *; apply Rinv_powerRZ; apply Rgt_not_eq; apply Rlt_gt;
     apply lt_INR_0; generalize B_sup_4; omega ].
 rewrite Z.opp_involutive; simpl in |- *; rewrite Rmult_1_r.
-replace (powerRZ (INR B) (Int_part (Rlog (Rabs x) (INR B)))) with (Rabs x);
- [ auto with real | symmetry  in |- *; apply Rlog_powerRZ ].
-apply Rabs_pos_lt; auto.
-RingReplace 1 (INR 1).
-apply lt_INR; generalize B_sup_4; omega.
+apply powerRZ_Int_part_Rabs; assumption.
 unfold Z.succ in |- *; rewrite plus_IZR.
 cut (encadrement (absolue_reelc xc) (Rabs x)).
 unfold encadrement in |- *.
@@ -218,16 +280,7 @@ replace (powerRZ (INR B) (n + Int_part (Rlog (Rabs x) (INR B)) + Z.succ 0))
   powerRZ (INR B) n).
 apply Rmult_lt_compat_r;
  [ apply powerRZ_lt; apply lt_INR_0; generalize B_sup_4; omega | idtac ].
-pattern (Rabs x) at 1 in |- *.
-replace (Rabs x) with (powerRZ (INR B) (Int_part (Rlog (Rabs x) (INR B))));
- [ apply powerRZ_croissance | idtac ].
-RingReplace 1 (INR 1).
-apply lt_INR; generalize B_sup_4; omega.
-auto with zarith.
-apply Rlog_powerRZ.
-apply Rabs_pos_lt; auto.
-RingReplace 1 (INR 1).
-apply lt_INR; generalize B_sup_4; omega.
+apply powerRZ_Int_part_Rabs2; assumption.
 rewrite <- Zplus_assoc; rewrite Rmult_comm; symmetry  in |- *;
  apply powerRZ_add.
 apply Rgt_not_eq; apply Rlt_gt; apply lt_INR_0; generalize B_sup_4; omega.
@@ -240,142 +293,6 @@ rewrite <- Zplus_succ_r; apply Zgt_le_succ; rewrite <- Zplus_0_r_reverse.
 apply Z.lt_gt; auto with zarith.
 apply powerRZ_O.
 Qed.
-
-
-
-Lemma msd_prop2 :
- forall (x : R) (xc : Reelc),
- x <> 0 -> encadrement xc x -> (2 <= Z.abs (xc (msd xc)) <= 2 * Z_of_nat B)%Z. 
-
-Proof.
-intros.
-split.
-RingReplace 2%Z (Z.succ 1).
-apply Zgt_le_succ; apply Z.lt_gt.
-apply msd_c_ter.
-generalize (msd_prop1 x xc).
-intros.
-elim H1; auto.
-intro; rewrite a. 
-apply Z.le_trans with (Z_of_nat B).
-replace (Z.abs (xc (- Int_part (Rlog (Rabs x) (INR B)))%Z)) with
- (Z.succ (Z.abs (xc (- Int_part (Rlog (Rabs x) (INR B)))%Z) - 1)).
-apply Zgt_le_succ; apply Z.lt_gt.
-apply lt_IZR.
-rewrite <- INR_IZR_INZ.
-rewrite <- Z_R_minus; simpl in |- *.
-apply
- Rlt_trans
-  with (Rabs x * powerRZ (INR B) (- Int_part (Rlog (Rabs x) (INR B)))).
-cut (encadrement (absolue_reelc xc) (Rabs x));
- [ unfold encadrement in |- *; unfold B_powerRZ in |- *; intro
- | apply absolue_correct; auto ].
-generalize (H2 (- Int_part (Rlog (Rabs x) (INR B)))%Z); clear H2.
-intros.
-elim H2; intro; auto.
-rewrite Rmult_comm;
- apply
-  Rmult_lt_reg_l
-   with (/ powerRZ (INR B) (- Int_part (Rlog (Rabs x) (INR B)))).
-apply Rinv_0_lt_compat; apply powerRZ_lt; apply lt_INR_0; generalize B_sup_4;
- omega.
-rewrite <- Rmult_assoc.
-replace
- (/ powerRZ (INR B) (- Int_part (Rlog (Rabs x) (INR B))) *
-  powerRZ (INR B) (- Int_part (Rlog (Rabs x) (INR B)))) with 1;
- [ rewrite Rmult_1_l
- | apply Rinv_l_sym; apply Rgt_not_eq; apply Rlt_gt; apply powerRZ_lt;
-    apply lt_INR_0; generalize B_sup_4; omega ].
-replace (/ powerRZ (INR B) (- Int_part (Rlog (Rabs x) (INR B)))) with
- (powerRZ (INR B) (- - Int_part (Rlog (Rabs x) (INR B))));
- [ rewrite Z.opp_involutive | idtac ].
-replace (powerRZ (INR B) (Int_part (Rlog (Rabs x) (INR B))) * INR B) with
- (powerRZ (INR B) (Z.succ (Int_part (Rlog (Rabs x) (INR B))))).
-pattern (Rabs x) at 1 in |- *.
-replace (Rabs x) with (powerRZ (INR B) (Int_part (Rlog (Rabs x) (INR B))));
- [ apply powerRZ_croissance | idtac ].
-RingReplace 1 (INR 1).
-apply lt_INR; generalize B_sup_4; omega.
-auto with zarith.
-apply Rlog_powerRZ.
-apply Rabs_pos_lt; auto.
-RingReplace 1 (INR 1).
-apply lt_INR; generalize B_sup_4; omega.
-apply powerRZ_Zs.
-apply Rgt_not_eq; apply Rlt_gt; apply lt_INR_0; generalize B_sup_4; omega.
-symmetry  in |- *; apply Rinv_powerRZ.
-apply Rgt_not_eq; apply Rlt_gt; apply lt_INR_0; generalize B_sup_4; omega.
-unfold Z.succ in |- *; ring.
-pattern (Z_of_nat B) at 1 in |- *.
-RingReplace (Z_of_nat B) (Z_of_nat B + 0)%Z;
- RingReplace (2 * Z_of_nat B)%Z (Z_of_nat B + Z_of_nat B)%Z.
-apply Zplus_le_compat_l.
-apply Zlt_le_weak.
-idtac; RingReplace 0%Z (Z_of_nat 0); apply Znat.inj_lt; generalize B_sup_4;
- omega.
-intro.
-rewrite b. 
-replace (Z.abs (xc (- Int_part (Rlog (Rabs x) (INR B)) + 1)%Z)) with
- (Z.succ (Z.abs (xc (- Int_part (Rlog (Rabs x) (INR B)) + 1)%Z) - 1));
- [ apply Zgt_le_succ; apply Z.lt_gt | unfold Z.succ in |- *; ring ].
-apply lt_IZR.
-rewrite mult_IZR; rewrite <- INR_IZR_INZ.
-rewrite <- Z_R_minus; simpl in |- *.
-apply
- Rlt_trans
-  with
-    (Rabs x * powerRZ (INR B) (Z.succ (- Int_part (Rlog (Rabs x) (INR B))))).
-cut (encadrement (absolue_reelc xc) (Rabs x));
- [ unfold encadrement in |- *; unfold B_powerRZ in |- *; intro
- | apply absolue_correct; auto ].
-unfold Z.succ in |- *;
- generalize (H2 (- Int_part (Rlog (Rabs x) (INR B)) + Z.succ 0)%Z); 
- clear H2.
-intros.
-elim H2; intro; auto.
-rewrite Rmult_comm;
- apply
-  Rmult_lt_reg_l
-   with (/ powerRZ (INR B) (Z.succ (- Int_part (Rlog (Rabs x) (INR B))))).
-apply Rinv_0_lt_compat; apply powerRZ_lt; apply lt_INR_0; generalize B_sup_4;
- omega.
-rewrite <- Rmult_assoc.
-replace
- (/ powerRZ (INR B) (Z.succ (- Int_part (Rlog (Rabs x) (INR B)))) *
-  powerRZ (INR B) (Z.succ (- Int_part (Rlog (Rabs x) (INR B))))) with 1;
- [ rewrite Rmult_1_l
- | apply Rinv_l_sym; apply Rgt_not_eq; apply Rlt_gt; apply powerRZ_lt;
-    apply lt_INR_0; generalize B_sup_4; omega ].
-replace (/ powerRZ (INR B) (Z.succ (- Int_part (Rlog (Rabs x) (INR B))))) with
- (powerRZ (INR B) (- Z.succ (- Int_part (Rlog (Rabs x) (INR B)))));
- [ unfold Z.succ in |- * | idtac ].
-rewrite Zopp_plus_distr; rewrite Z.opp_involutive.
-rewrite Rmult_comm; rewrite Rmult_assoc.
-replace (INR B * powerRZ (INR B) (Int_part (Rlog (Rabs x) (INR B)) + - (1)))
- with (powerRZ (INR B) (Z.succ (Int_part (Rlog (Rabs x) (INR B)) + - (1)))).
-unfold Z.succ in |- *; rewrite <- Zplus_assoc.
-simpl in |- *; rewrite Zplus_0_r.
-pattern (Rabs x) at 1 in |- *.
-replace (Rabs x) with (powerRZ (INR B) (Int_part (Rlog (Rabs x) (INR B)))).
-pattern (powerRZ (INR B) (Int_part (Rlog (Rabs x) (INR B)))) at 1 in |- *.
-RingReplace (powerRZ (INR B) (Int_part (Rlog (Rabs x) (INR B))))
- (powerRZ (INR B) (Int_part (Rlog (Rabs x) (INR B))) + 0).
-RingReplace (2 * powerRZ (INR B) (Int_part (Rlog (Rabs x) (INR B))))
- (powerRZ (INR B) (Int_part (Rlog (Rabs x) (INR B))) +
-  powerRZ (INR B) (Int_part (Rlog (Rabs x) (INR B)))).
-apply Rplus_lt_compat_l.
-apply powerRZ_lt; apply lt_INR_0; generalize B_sup_4; omega.
-apply Rlog_powerRZ.
-apply Rabs_pos_lt; auto.
-RingReplace 1 (INR 1).
-apply lt_INR; generalize B_sup_4; omega.
-rewrite Rmult_comm; apply powerRZ_Zs.
-apply Rgt_not_eq; apply Rlt_gt; apply lt_INR_0; generalize B_sup_4; omega.
-symmetry  in |- *; apply Rinv_powerRZ.
-apply Rgt_not_eq; apply Rlt_gt; apply lt_INR_0; generalize B_sup_4; omega.
-Qed.
-
-
 
 Lemma msd_ax2 :
  forall (x : R) (xc yc : Reelc) (n : Z),

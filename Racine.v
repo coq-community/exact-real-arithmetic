@@ -14,12 +14,9 @@ Require Import Rbase_doubles_inegalites.
 Require Import Zarith_inegalites.
 Require Import Zarith_operations.
 
-
 Axiom Int_part_sqrt : forall z : Z, Z.sqrt z = Int_part (sqrt (IZR z)).
 
-
-Axiom
-  Int_part_interval :
+Axiom Int_part_interval :
     forall r1 r2 : R,
     (exists z : Z, IZR z <= r1 < IZR z + 1 /\ IZR z <= r2 < IZR z + 1) ->
     Int_part r1 = Int_part r2.
