@@ -12,6 +12,12 @@ Axiom msd_c :
     (forall n : Z, (n < msd xc)%Z -> (Z.abs (xc n) <= 1)%Z) /\
     (Z.abs (xc (msd xc)) > 1)%Z. 
 
+Lemma inconsistent_msd: False.
+Proof.
+destruct (msd_c (fun x => 0%Z)) as [_ it].
+revert it; discriminate.
+Qed.
+
 Lemma intermediaire :
  forall (xc : Reelc) (m : Z),
  msd xc = m ->
