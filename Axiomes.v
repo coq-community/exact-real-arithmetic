@@ -7,17 +7,6 @@ Require Import Rbase_doubles_inegalites.
 
 Axiom B_sup_4 : 4 <= B.
 
-Axiom gauss_correct :
-    forall z : Z,
-    (IZR z * / INR B - 1 * / 2 < IZR (gauss_z_sur_B z) <=
-     IZR z * / INR B + 1 * / 2)%R.
-
-
-Axiom gauss_correct_pow :
-    forall z n : Z,
-    (IZR z * / B_powerRZ n - 1 * / 2 < IZR (gauss_z_sur_B_pow z n) <=
-     IZR z * / B_powerRZ n + 1 * / 2)%R.
-
 Axiom msd_c :
     forall xc : Reelc,
     (forall n : Z, (n < msd xc)%Z -> (Z.abs (xc n) <= 1)%Z) /\
