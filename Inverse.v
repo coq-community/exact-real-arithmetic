@@ -23,6 +23,35 @@ Require Import Rbase_operations.
 Axiom Zdiv_sup_opp :
     forall b c : Z, (c < 0)%Z -> (Z.sgn c * Zdiv_sup b (Z.abs c))%Z = (b / c)%Z.
 
+Lemma Bneq0 : INR B <> 0.
+Proof.
+apply not_eq_sym; apply Rlt_not_eq; apply INR_B_non_nul.
+Qed.
+
+Lemma produitB_powerRZ : forall z1 z2 : Z,
+B_powerRZ z1 * B_powerRZ z2=B_powerRZ (z1 + z2).
+Proof.
+intros z1 z2. unfold B_powerRZ.
+rewrite powerRZ_add.
+- reflexivity.
+- apply Bneq0.
+Qed.
+
+Lemma Bexpos0 :
+ B_powerRZ 0 = 1.
+Proof. reflexivity. Qed.
+
+
+Lemma Bexpos : forall n : Z,
+B_powerRZ n > 0.
+
+Proof.
+  intros n.
+unfold B_powerRZ.
+apply powerRZ_lt.
+apply INR_B_non_nul.
+Qed.
+
 Lemma inverse_correct :
  forall (x : R) (xc : Reelc),
  x <> 0 -> encadrement xc x -> encadrement (inverse_reelc xc) (1 * / x).   
