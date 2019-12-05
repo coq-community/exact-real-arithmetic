@@ -3,10 +3,14 @@
 This development describes algorithms for exact computation of real numbers,
 including algorithms for addition, multiplication, multiplicative inverse,
 and square roots.  The whole development is parameterized by a given basis B.
-Each real number 'x' is represented by a function 'fx'from Z to Z, where
-'fx n' represents the integral part of 'x * B ^ n'.
+Each real number 'x' is represented by a function 'fx' from Z to Z, where
+'fx n' represents the integral part of 'x * B ^ n'.  This representation is
+described by the predicate `encadrement`.
 
 The algorithms are taken from the PhD. Thesis of Valérie Ménissier-Morain.
+A condensend presentation is available in article of the Journal of
+Logic and  Algebraic Programming (Vol. 64, Issue 1, July 2005):
+[Arbitrary precision real arithmetic: design and algorithms](https://www.sciencedirect.com/science/article/pii/S1567832604000748).
 
 The initial development by J. Créci, Maintenance was long ensured by H.
 Herbelin.
